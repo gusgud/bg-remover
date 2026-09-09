@@ -11,7 +11,7 @@ const ALLOWED_TYPES = ['video/mp4', 'video/quicktime', 'video/webm'];
 
 // Kalau hasil ternyata background yang justru dipertahankan (mask terbalik),
 // ubah nilai ini dari 1 ke 0. Ini tergantung label map model yang dipakai.
-const FOREGROUND_MASK_VALUE = 1;
+const FOREGROUND_MASK_VALUE = 0;
 
 // -------- DOM refs --------
 const fileInput = document.getElementById('fileInput');
