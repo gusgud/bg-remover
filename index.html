@@ -1,14 +1,68 @@
-BG Remover
-Remove video background for free
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>BG Remover</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="app__header">
+      <h1>BG Remover</h1>
+      <p class="subtitle">Remove video background for free</p>
+    </header>
 
-1000252463.mp4
-Upload Video
-MP4, MOV, atau WebM · maks 100MB · maks 60 detik
+    <section class="card">
+      <input id="fileInput" type="file" accept="video/mp4,video/quicktime,video/webm" class="hidden-input" />
 
-Warna background:    
-Remove Background
-0%
-Hasil
- Download Video
- 
-Diproses sepenuhnya di HP kamu. Tidak ada video yang diupload ke server.
+      <div id="dropZone" class="drop-zone">
+        <button id="uploadBtn" type="button" class="btn btn--primary btn--big">
+          Upload Video
+        </button>
+        <p class="drop-hint">MP4, MOV, atau WebM &middot; maks 100MB &middot; maks 60 detik</p>
+      </div>
+
+      <div id="fileInfo" class="file-info hidden"></div>
+
+      <div id="colorPicker" class="color-picker hidden">
+        <span>Warna background:</span>
+        <button class="color-swatch color-swatch--green" data-color="#00ff00" aria-label="Hijau"></button>
+        <button class="color-swatch color-swatch--blue" data-color="#0000ff" aria-label="Biru"></button>
+        <button class="color-swatch color-swatch--white" data-color="#ffffff" aria-label="Putih"></button>
+        <button class="color-swatch color-swatch--black" data-color="#000000" aria-label="Hitam"></button>
+      </div>
+
+      <button id="processBtn" type="button" class="btn btn--primary btn--big hidden">
+        Remove Background
+      </button>
+
+      <div id="progressWrap" class="progress-wrap hidden">
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+        <span id="progressLabel" class="progress-label">0%</span>
+      </div>
+
+      <div id="errorBox" class="error-box hidden"></div>
+
+      <div id="resultWrap" class="result-wrap hidden">
+        <h2>Hasil</h2>
+        <video id="resultVideo" class="result-video" controls playsinline muted></video>
+        <a id="downloadBtn" class="btn btn--secondary btn--big" download="bg-removed.webm">
+          Download Video
+        </a>
+      </div>
+    </section>
+
+    <video id="sourceVideo" class="hidden" playsinline muted></video>
+    <canvas id="workCanvas" class="hidden"></canvas>
+
+    <footer class="app__footer">
+      <p>Diproses sepenuhnya di HP kamu. Tidak ada video yang diupload ke server.</p>
+    </footer>
+  </main>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
