@@ -248,17 +248,24 @@ async function runPipeline(file) {
 
     // Ambil data mask dan komposit: foreground asli, background = warna solid
     const maskData = mask.getAsUint8Array();
+    const maskW = mask.width;
+    const maskH = mask.height;
     const [r, g, b] = hexToRgb(bgColor);
     const pixels = frame.data;
 
-    for (let i = 0; i < maskData.length; i++) {
-      const isForeground = maskData[i] === FOREGROUND_MASK_VALUE;
-      if (!isForeground) {
-        const offset = i * 4;
-        pixels[offset] = r;
-        pixels[offset + 1] = g;
-        pixels[offset + 2] = b;
-        pixels[offset + 3] = 255;
+    for (let y = 0; y < outH; y++) {
+      const my = Math.min(maskH - 1, Math.floor((y * maskH) / outH));
+      for (let x = 0; x < outW; x++) {
+        const mx = Math.min(maskW - 1, Math.floor((x * maskW) / outW));
+        const maskIndex = my * maskW + mx;
+        const isForeground = maskData[maskIndex] === FOREGROUND_MASK_VALUE;
+        if (!isForeground) {
+          const offset = (y * outW + x) * 4;
+          pixels[offset] = r;
+          pixels[offset + 1] = g;
+          pixels[offset + 2] = b;
+          pixels[offset + 3] = 255;
+        }
       }
     }
 
